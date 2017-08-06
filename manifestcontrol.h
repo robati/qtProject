@@ -13,6 +13,7 @@ public:
     QString manifestPath;
     QString urlPrefix;
     QString getDirectory(DLinformation,QString);
+    QString getFilePath(DLinformation,QString);
     manifestControl();
     manifestControl(QString);
     int parseManifest();

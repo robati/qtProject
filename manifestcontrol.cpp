@@ -8,7 +8,7 @@
 #include "manifestcontrol.h"
 #include<QString>
 #include <functional>
-#include <QTimer>
+
 
 manifestControl::manifestControl()
 {
@@ -57,7 +57,14 @@ int manifestControl::parseManifest(){
 }
 QString manifestControl::getDirectory(DLinformation input,QString mydirectory){
     QString a= mydirectory+input.URL.mid(urlPrefix.length(),input.URL.lastIndexOf('/')-urlPrefix.length());
-    qDebug()<<a;
+   // qDebug()<<a;
+    return a;
+
+
+}
+QString manifestControl::getFilePath(DLinformation input,QString mydirectory){
+    QString a= mydirectory+input.URL.mid(urlPrefix.length());//,input.URL.lastIndexOf('/')-urlPrefix.length());
+   // qDebug()<<a;
     return a;
 
 

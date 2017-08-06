@@ -17,7 +17,6 @@ public:
     QStringList arguments;
     QString program;
     void conncectProcess(std::function<void(int, QString)> _notify);
-    void setProgram(QStringList);
     void startDownload(std::function<void(QString,int)> notify);
     bool includesDetail(QString line);
     void downlaod(QString url, QString dir, std::function<void(QString, int)> mainnotify);

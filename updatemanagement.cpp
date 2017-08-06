@@ -1,6 +1,7 @@
 #include "updatemanagement.h"
 #include<QtDebug>
 #include<QFile>
+#include <QDir>
 updateManagement::updateManagement()
 {
 
@@ -19,17 +20,22 @@ void updateManagement::update(QString secondFile,QString newPath){
         if(mainFile->shouldBeDownloaded(newFile->informationList.at(i))){
             DLQueue.append(newFile->informationList.at(i));
         }
-//        else{
-//            QString myfile=mainFile->manifestDataManagement->getDirectory(newFile->informationList.at(i));
-//           qDebug()<<myfile;
-//                    // QFile::copy(), newPath);
-//        }
+        else{
+            QString mainfileAdd=mainFile->manifestDataManagement->getFilePath(newFile->informationList.at(i),mainFile->downloadPath);
+            QString path=newFile->getFilePath(newFile->informationList.at(i),newPath);
+            QDir dir(newFile->getDirectory(newFile->informationList.at(i),newPath));
+            if (!dir.exists()) {
+                dir.mkpath(".");
+            }
+            qDebug()<<QFile::copy(mainfileAdd, path);
+
+        }
 
     }
-    qDebug()<<DLQueue.length();
+    if(DLQueue.length()){
     downloadFiles=new dlcontrol(newPath);
     downloadFiles->setQueue(DLQueue,newFile->urlPrefix);
     qDebug()<<downloadFiles->manifestDataManagement->informationList.length();
-    downloadFiles->startDownloading();
+    downloadFiles->startDownloading();}
 
 }
