@@ -16,8 +16,7 @@ public:
     void setQueue(QList <DLinformation> ,QString);
     void downloadNext();
     void startDownloading();
-    bool downloadIfNotFound(DLinformation);
-    bool shouldBeDownloaded(DLinformation);
+
 
 };
 

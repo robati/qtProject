@@ -17,6 +17,7 @@ public:
     manifestControl();
     manifestControl(QString);
     int parseManifest();
+    bool shouldBeDownloaded(DLinformation);
 };
 
 #endif // MANIFESTCONTROL_H

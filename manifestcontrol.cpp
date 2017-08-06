@@ -42,6 +42,7 @@ int manifestControl::parseManifest(){
     for(int i=0; i<objMessage.keys().size(); i++){
         DLinformation temp;
         path=objMessage.keys()[i];
+        temp.directory=path;
         temp.URL=urlPrefix+path;
         temp.md5=objMessage.value(path).toObject().value("md5").toString();
         temp.size=objMessage.value(path).toObject().value("size").toDouble();
@@ -68,5 +69,17 @@ QString manifestControl::getFilePath(DLinformation input,QString mydirectory){
     return a;
 
 
+}
+bool manifestControl::shouldBeDownloaded(DLinformation input){
+    //if file exist correctly returns 0 else returns 1
+    int index;
+    index=informationList.indexOf(input);
+    if(index!=-1){
+        if(input.match(informationList.at(index))){
+            qDebug()<<"matched";
+            return 0;}
+
+    }
+    return 1;
 }
 

@@ -21,7 +21,7 @@ bool dlcontrol::setQueue(QString manifest){
     //returns false if no downloadURL found.
     manifestDataManagement=new manifestControl(manifest);
     queueLen=manifestDataManagement->parseManifest();
-    qDebug()<<queueLen;
+    qDebug()<<manifest<<queueLen;
     return queueLen==0?0:1;
 
 }
@@ -62,33 +62,4 @@ void dlcontrol::startDownloading(){
     downloadNext();
 
 }
-bool dlcontrol::downloadIfNotFound(DLinformation input){
-    //this function will download the input url if
-    //it is not found in manifest informationlist or
-    //it exist in the list but has different md5/size and returns 1
-    int index;
-    index=manifestDataManagement->informationList.indexOf(input);
-    if(index!=-1){
-        if(input.match(manifestDataManagement->informationList.at(index))){
-            qDebug()<<"matched";
-            return 0;}
 
-    }
-    qDebug()<<"here"<<input.URL;
-    qDebug()<< manifestDataManagement->getDirectory(input,downloadPath);
-    DLmanager::getInstance()->downlaod( input.URL,manifestDataManagement->getDirectory(input,downloadPath), [=](QString debugstr,int exitcode){});
-    return 1;
-
-}
-bool dlcontrol::shouldBeDownloaded(DLinformation input){
-    //if file exist correctly returns 0 else returns 1
-    int index;
-    index=manifestDataManagement->informationList.indexOf(input);
-    if(index!=-1){
-        if(input.match(manifestDataManagement->informationList.at(index))){
-            qDebug()<<"matched";
-            return 0;}
-
-    }
-    return 1;
-}

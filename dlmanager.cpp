@@ -43,22 +43,7 @@ void DLmanager::conncectProcess(std::function<void(int, QString)> _notify){
     });
 }
 
-void DLmanager::startDownload(std::function<void(QString,int)> notify){
-  //  qDebug()<<"i am downloading";
-    conncectProcess([notify, this](int exitcode, QString str){
-		QObject::disconnect(connection_started);
-		QObject::disconnect(connection_readyread);
-		QObject::disconnect(connection_finished);
-		QObject::disconnect(connection_error);
-		QObject::disconnect(connection_statechanged);
-        notify("hello from dlmanager",exitcode);
-    });
-    process->start(program, arguments);
-   // qDebug()<<"i am downloading"<<arguments[1];
-    process->waitForFinished();
 
-
-}
 bool DLmanager::includesDetail(QString line){
     QRegExp detail("\\[#[0-9a-z]{6}");
     detail.setMinimal(true);
@@ -72,9 +57,19 @@ void DLmanager::downlaod(QString url, QString dir, std::function<void(QString, i
     arguments.clear();
     arguments << "--dir="+dir;
     arguments << url;
-    startDownload([=](QString startdl,int exitcode){
-        mainnotify("belakhare resdim be main",exitcode);
+    conncectProcess([mainnotify, this](int exitcode, QString str){
+        QObject::disconnect(connection_started);
+        QObject::disconnect(connection_readyread);
+        QObject::disconnect(connection_finished);
+        QObject::disconnect(connection_error);
+        QObject::disconnect(connection_statechanged);
+        mainnotify("hello from dlmanager",exitcode);
     });
+    process->start(program, arguments);
+   // qDebug()<<"i am downloading"<<arguments[1];
+    process->waitForFinished();
+
+
 }
 
 //-------------------------------------//singleton-------------------

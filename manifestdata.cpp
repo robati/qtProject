@@ -8,3 +8,6 @@ bool DLinformation::match(DLinformation input){
 bool DLinformation::operator==(DLinformation rhs){
     return URL==rhs.URL;
 }
+DLinformation::DLinformation(){
+    Status=unknown;
+}

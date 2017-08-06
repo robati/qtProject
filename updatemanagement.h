@@ -8,10 +8,12 @@ class updateManagement
 {
 public:
     updateManagement();
-    dlcontrol *mainFile;
+    QString downloadPath;
+    manifestControl *mainFile;
     dlcontrol *downloadFiles;
     void setMainFile(QString, QString);
     void update(QString,QString);
+    void update(QString);
 };
 
 #endif // UPDATEMANAGEMENT_H
