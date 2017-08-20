@@ -1,17 +1,21 @@
 #ifndef INFORMATION_H
 #define INFORMATION_H
 #include<QString>
-enum updateStatus{download,replace,keep,extra,unknown};
+enum downloadStatus{unknown,Downloaded};
 class DLinformation{
 public:
     QString URL;
     QString md5;
     double size;
-    updateStatus Status;
+    int id;
+    downloadStatus Status;
     QString directory;
     DLinformation();
     bool match(DLinformation);
     bool operator==(DLinformation rhs);
+    void setStatus(downloadStatus);
+    void setID(int number);
+    downloadStatus getStatus();
 };
 
 

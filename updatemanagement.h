@@ -1,19 +1,27 @@
 #ifndef UPDATEMANAGEMENT_H
 #define UPDATEMANAGEMENT_H
-#include"manifestcontrol.h"
-#include"dlcontrol.h"
+#include <QDir>
+#include<QFile>
 #include<QString>
-
+#include<QtDebug>
+#include"dlmanager.h"
+#include"manifestcontrol.h"
 class updateManagement
 {
 public:
     updateManagement();
-    QString downloadPath;
+    QString updateFolder;
+    QString gameFolder;
     manifestControl *mainFile;
-    dlcontrol *downloadFiles;
-    void setMainFile(QString, QString);
-    void update(QString,QString);
-    void update(QString);
+    void setMainFile(QFile* manifest, QString gamepath);
+    void update(QFile *second);
+    void finalize(QList <DLinformation> ,QList <DLinformation>);
+    void downloadandFinalize(QList <DLinformation> dlQueue, QList<DLinformation> deleteQueue, manifestControl *newFile);
+    bool moveDownloadfiles(QList <DLinformation> moveQueue);
+    bool deleteExtraFiles(QList <DLinformation> deleteQueue);
+    bool deleteUpdateFolder();
+
+
 };
 
 #endif // UPDATEMANAGEMENT_H
